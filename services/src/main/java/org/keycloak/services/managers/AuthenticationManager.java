@@ -25,6 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -310,6 +311,16 @@ public class AuthenticationManager {
                     logger.debug("invalid password for user: " + user.getLoginName());
                     return AuthenticationStatus.INVALID_CREDENTIALS;
                 }
+
+                // updated attributes
+                user.setAttribute("Email", user.getEmail());
+                user.setAttribute("LoginName", user.getLoginName());
+                user.setAttribute("Full Name", "First Last");
+                user.setAttribute("Branch Code", "0116");
+                user.setAttribute("ID", "1234567890123");
+                user.setAttribute("Permissions", "0");
+                user.setAttribute("AccessPermitTime", "2147483647");
+                user.setAttribute("LastLoginTime", String.valueOf(new Date().getTime()));
             }
 
             if (!user.getRequiredActions().isEmpty()) {

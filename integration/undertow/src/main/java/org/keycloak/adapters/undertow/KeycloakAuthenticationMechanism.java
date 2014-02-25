@@ -92,7 +92,9 @@ public class KeycloakAuthenticationMechanism implements AuthenticationMechanism 
     }
 
     protected void completeAuthentication(HttpServerExchange exchange, SecurityContext securityContext, OAuthAuthenticator oauth) {
-        final KeycloakPrincipal principal = new KeycloakPrincipal(oauth.getToken().getSubject(), null);
+        final KeycloakPrincipal principal = new KeycloakPrincipal(oauth.getToken().getSubject(), null,
+                oauth.getToken().getAttributes());
+
         KeycloakUndertowAccount account = new KeycloakUndertowAccount(principal, oauth.getToken(), oauth.getTokenString(), oauth.getRefreshToken(), realmConfig, resourceMetadata, adapterConfig);
         securityContext.authenticationComplete(account, "KEYCLOAK", true);
         login(exchange, account);
@@ -104,7 +106,8 @@ public class KeycloakAuthenticationMechanism implements AuthenticationMechanism 
 
 
     protected void completeAuthentication(SecurityContext securityContext, BearerTokenAuthenticator bearer) {
-        final KeycloakPrincipal principal = new KeycloakPrincipal(bearer.getToken().getSubject(), bearer.getSurrogate());
+        final KeycloakPrincipal principal = new KeycloakPrincipal(bearer.getToken().getSubject(),
+                bearer.getSurrogate(), bearer.getToken().getAttributes());
         KeycloakUndertowAccount account = new KeycloakUndertowAccount(principal, bearer.getToken(), bearer.getTokenString(), null, realmConfig, resourceMetadata, adapterConfig);
         securityContext.authenticationComplete(account, "KEYCLOAK", false);
     }

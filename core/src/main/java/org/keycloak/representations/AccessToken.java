@@ -75,6 +75,8 @@ public class AccessToken extends JsonWebToken {
     @JsonProperty("resource_access")
     protected Map<String, Access> resourceAccess = new HashMap<String, Access>();
 
+    protected Map<String, Object> attributes = new HashMap<String, Object>();
+
     public Map<String, Access> getResourceAccess() {
         return resourceAccess;
     }
@@ -84,7 +86,13 @@ public class AccessToken extends JsonWebToken {
     }
 
 
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
 
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
 
     /**
      * Does the realm require verifying the caller?

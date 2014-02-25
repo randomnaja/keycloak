@@ -1,6 +1,7 @@
 package org.keycloak;
 
 import java.security.Principal;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
@@ -9,10 +10,12 @@ import java.security.Principal;
 public class KeycloakPrincipal implements Principal {
     protected String name;
     protected String surrogate;
+    protected Map<String, Object> attributes;
 
-    public KeycloakPrincipal(String name, String surrogate) {
+    public KeycloakPrincipal(String name, String surrogate, Map<String, Object> attributes) {
         this.name = name;
         this.surrogate = surrogate;
+        this.attributes = attributes;
     }
 
     @Override
@@ -22,6 +25,10 @@ public class KeycloakPrincipal implements Principal {
 
     public String getSurrogate() {
         return surrogate;
+    }
+
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
     @Override

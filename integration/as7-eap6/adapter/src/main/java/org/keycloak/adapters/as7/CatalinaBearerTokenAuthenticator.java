@@ -102,7 +102,8 @@ public class CatalinaBearerTokenAuthenticator {
             }
             surrogate = chain[0].getSubjectX500Principal().getName();
         }
-        KeycloakPrincipal skeletonKeyPrincipal = new KeycloakPrincipal(token.getSubject(), surrogate);
+        KeycloakPrincipal skeletonKeyPrincipal = new KeycloakPrincipal(token.getSubject(), surrogate,
+                token.getAttributes());
         principal = new CatalinaSecurityContextHelper().createPrincipal(request.getContext().getRealm(), skeletonKeyPrincipal, roles);
         request.setUserPrincipal(principal);
         request.setAuthType("OAUTH_BEARER");

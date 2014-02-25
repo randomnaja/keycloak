@@ -224,6 +224,8 @@ public class TokenManager {
 
         AccessToken token = initToken(realm, client, user);
 
+        token.getAttributes().putAll(user.getAttributes());
+
         if (realmRolesRequested.size() > 0) {
             for (RoleModel role : realmRolesRequested) {
                 addComposites(token, role);

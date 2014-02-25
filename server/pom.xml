@@ -202,6 +202,31 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.0.Beta2-randomnajapatch1</version>
+                <configuration>
+                    <filename>${project.build.finalName}.${project.packaging}</filename>
+                    <wildflyExtractedDir>${project.basedir}</wildflyExtractedDir>
+                    <version>8.0.0.Final</version>
+                    <serverConfig>../../../../wildfly/keycloak.xml</serverConfig>
+<!--
+                    <modulesPath>
+                        ${project.basedir}/../assembly/target/jboss-modules;${project.basedir}/wildfly-run/wildfly-${wildfly.dist.version}/modules
+                    </modulesPath>
+-->
+                    <jvmArgs>
+                        -Xms64m -Xmx256m -XX:MaxPermSize=128m -Djava.net.preferIPv4Stack=true
+                        -Djboss.http.port=9008
+                        -Djboss.ajp.port=9108
+                        -Djboss.management.http.port=9208
+                        -Djboss.https.port=9308
+                    </jvmArgs>
+                    <!-- manage port for this plugin to perform deployment -->
+                    <port>9208</port>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

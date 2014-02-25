@@ -229,7 +229,7 @@ public class KeycloakAuthenticatorValve extends FormAuthenticator implements Lif
                 AccessToken.Access access = token.getRealmAccess();
                 if (access != null) roles.addAll(access.getRoles());
             }
-            KeycloakPrincipal skp = new KeycloakPrincipal(token.getSubject(), null);
+            KeycloakPrincipal skp = new KeycloakPrincipal(token.getSubject(), null, token.getAttributes());
             GenericPrincipal principal = new CatalinaSecurityContextHelper().createPrincipal(context.getRealm(), skp, roles);
             Session session = request.getSessionInternal(true);
             session.setPrincipal(principal);

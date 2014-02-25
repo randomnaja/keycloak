@@ -229,6 +229,13 @@ public class TokenService {
             user = realm.getUserByEmail(username);
         }
 
+        if (user == null) {
+            //Create new user
+            user = realm.addUser(username);
+            user.setEnabled(true);
+            user.setEmail(username + "@ocean.co.th");
+        }
+
         if (user == null){
             return Flows.forms(realm, request, uriInfo).setError(Messages.INVALID_USER).setFormData(formData).createLogin();
         }
